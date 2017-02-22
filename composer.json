@@ -1,5 +1,5 @@
 {
-    "name": "zudar/China-id",
+    "name": "zudar/china-id",
     "description": "中国公民身份证号码验证，解析，生成",
     "keywords": ["China", "ID", "China ID"],
     "license": "MIT",
