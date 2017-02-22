@@ -114,10 +114,10 @@ class ID18 implements IDInterface
         static $selectAreas;
         if (empty($areaCode)) {
             if (empty($selectAreas)) {
-                $selectAreas = array_filter(array_keys(ChinaAreaCode::getAreas()), function ($code)
+                $selectAreas = array_values(array_filter(array_keys(ChinaAreaCode::getAreas()), function ($code)
                 {
                     return $code % 100 != 0;
-                });
+                }));
             }
             $areaCode = $selectAreas[rand(0, count($selectAreas) - 1)];
         }

@@ -87,12 +87,13 @@ class ID15 implements IDInterface
         static $selectAreas;
         if (empty($areaCode)) {
             if (empty($selectAreas)) {
-                $selectAreas = array_filter(array_keys(ChinaAreaCode::getAreas()), function ($code)
+                $selectAreas = array_values(array_filter(array_keys(ChinaAreaCode::getAreas()), function ($code)
                 {
                     return $code % 100 != 0;
-                });
+                }));
             }
-            $areaCode = $selectAreas[rand(0, count($selectAreas) - 1)];
+            $selectIndex=rand(0, count($selectAreas) - 1);
+            $areaCode = $selectAreas[$selectIndex];
         }
         if (empty($birthday)) {
             $birthday = time() - rand(16 * 365 * 24 * 3600, 100 * 365 * 24 * 3600);
@@ -130,7 +131,7 @@ class ID15 implements IDInterface
                 $seqNum = $female[rand(0, 1)];
             }
         }
-        $idNum = '' . $areaCode . date('md', $birthday) . str_pad($seqNum, 3, '0', STR_PAD_LEFT);
+        $idNum = '' . $areaCode . date('ymd', $birthday) . str_pad($seqNum, 3, '0', STR_PAD_LEFT);
         return $idNum;
     }
 

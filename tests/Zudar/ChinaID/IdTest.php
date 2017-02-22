@@ -20,12 +20,20 @@ class IdTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(Gender::MALE, $id->getGender());
         $this->assertEquals('江西省宜春市宜丰县', $id->getArea());
     }
-    public function testGenerate(){
+    public function testGenerate18(){
         $id=new ID18();
         for($i=0;$i<10;$i++){
             $idNum= $id->generate(360924);
             $id->setIdNum($idNum);
-            echo $id;
+//             echo $id;
+        }
+    }
+    public function testGenerate15(){
+        $id=new ID15();
+        for($i=0;$i<10;$i++){
+            $idNum= $id->generate();
+            $id->setIdNum($idNum);
+//             echo $id;
         }
     }
 }
