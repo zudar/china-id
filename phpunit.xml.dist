@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<phpunit bootstrap="vendor/autoload.php" colors="true">
+    <testsuites>
+        <testsuite name="China ID Test Suite">
+            <directory>tests/Zudar/ChinaID</directory>
+        </testsuite>
+    </testsuites>
+
+    <filter>
+        <whitelist>
+            <directory suffix=".php">src/Zudar/ChinaID/</directory>
+        </whitelist>
+    </filter>
+
+</phpunit>
