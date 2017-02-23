@@ -10,7 +10,7 @@ $id->isValidate();
 <pre><code>
 $id=new ID18();
 $id->setIdNum('320706199108093125');
-$id->getBirthday();//出生日期时间戳
+$id->getBirthday();//出生日期
 $id->getArea();//地区
 Gender::getDesc($id->getGender());//性别
 </code></pre>

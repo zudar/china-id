@@ -28,7 +28,7 @@ interface IDInterface
     /**
      * 获取生日
      *
-     * @return int
+     * @return string  'YYYY-mm-dd'
      */
     public function getBirthday();
 

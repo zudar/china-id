@@ -4,6 +4,7 @@ namespace Zudar\ChinaID\ID;
 use Zudar\ChinaID\AreaCode\ChinaAreaCode;
 use Zudar\ChinaID\Consts\Gender;
 use Zudar\ChinaID\Exception\IdStringException;
+use Zudar\ChinaID\Exception\NotValidIdException;
 
 /**
  * 第一代身份证
@@ -27,6 +28,9 @@ class ID15 implements IDInterface
             throw new IdStringException();
         }
         $this->idNum = trim(strtoupper($idNum));
+        if(!$this->isValidate()){
+            throw new NotValidIdException($this->idNum);
+        }
     }
 
     public function isValidate()
@@ -63,8 +67,13 @@ class ID15 implements IDInterface
     public function getBirthday()
     {
         $birthdayCode = $this->getBirthdayCode();
-        $birthdayTime = mktime(0, 0, 0, substr($birthdayCode, 2, 2), substr($birthdayCode, 4, 2), ($this->isOver100Age() ? "18" : "19") . substr($birthdayCode, 0, 2));
-        return $birthdayTime;
+        $year=($this->isOver100Age() ? "18" : "19") . substr($birthdayCode, 0, 2);
+        $mon=substr($birthdayCode, 2, 2);
+        $day=substr($birthdayCode, 4, 2);
+        if(checkdate($mon, $day, $year)){
+            return "$year-$mon-$day"; 
+        }
+        return '';
     }
 
     private function isOver100Age()
@@ -96,7 +105,7 @@ class ID15 implements IDInterface
             $areaCode = $selectAreas[$selectIndex];
         }
         if (empty($birthday)) {
-            $birthday = time() - rand(16 * 365 * 24 * 3600, 100 * 365 * 24 * 3600);
+            $birthday = time() - rand(16 * 365 , 100 * 365 )* 24 * 3600;
         }
         if (empty($gender)) {
             $genders = [
@@ -147,7 +156,7 @@ class ID15 implements IDInterface
 
     public function __toString()
     {
-        return "ID:" . $this->idNum . "\r\n" . "Gender:" . Gender::getDesc($this->getGender()) . "\r\n" . "Area:" . $this->getArea() . "\r\n" . "Birthday:" . date('Y-m-d', $this->getBirthday());
+        return "ID:" . $this->idNum . "\r\n" . "Gender:" . Gender::getDesc($this->getGender()) . "\r\n" . "Area:" . $this->getArea() . "\r\n" . "Birthday:" .  $this->getBirthday();
     }
 }
 
